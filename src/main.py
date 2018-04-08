@@ -20,12 +20,15 @@ train_data = np.array([])
 train_labels = np.array([])
 
 for batch in BATCH_LIST:
+    print(batch)
     data, labels = load_cifar(DATA_ROOT + batch)
-    np.append(train_data, data)
-    np.append(train_labels, labels)
+    print(data.shape)
+    print(labels.shape)
+    train_data = np.append(train_data, data)
+    train_labels = np.append(train_labels, labels)
 
-print(train_data.shape)
-print(train_labels.shape)
+print("Number of training data", train_data.shape)
+print("Number of test data", train_labels.shape)
 # Allocate 0.2 of the data as test data
 # train_data, test_data, train_labels, test_labels = train_test_split(data, random_state=True, test_size=0.2)
 

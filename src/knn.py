@@ -1,4 +1,14 @@
+# ========================================
+# [] File Name : knn.py
+#
+# [] Creation Date : April 2018
+#
+# [] Created By : Ali Gholami (aligholami7596@gmail.com)
+# ========================================
+
+
 import numpy as np
+
 
 class NearestNeighbour:
     def __init__(self):
@@ -7,6 +17,7 @@ class NearestNeighbour:
         self.predicted_labels = np.array([])
 
     def train(self, train_data, train_labels):
+        # There not much training in KNN
         self.train_data = train_data
         self.train_labels = train_labels
 

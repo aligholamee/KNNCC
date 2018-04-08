@@ -9,6 +9,7 @@
 import glob
 import numpy as np
 from PIL import Image
+import pickle
 
 def load_cifar(path):
     """
@@ -16,12 +17,7 @@ def load_cifar(path):
     :param path: string
     :return: given dataset path in a numpy array
     """
+    with open(path, 'rb') as batch_1:
+        loaded = pickle.load(batch_1, encoding='bytes')
 
-    # Get the image filelist
-    image_list = glob.glob(path)
-
-    # Load the images one by one
-    data = np.array([np.array(Image.open(image)) for image in image_list])
-
-    return data
-
+    return loaded[b'data'],np.array(loaded[b'labels'])
