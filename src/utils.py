@@ -21,3 +21,16 @@ def load_cifar(path):
         loaded = pickle.load(batch_1, encoding='bytes')
 
     return loaded[b'data'],np.array(loaded[b'labels'])
+
+def store_image(data, path, index):
+    """
+    Stores the images of type numpy to the path
+    :param data: numpy array
+    :param path: string
+    :return: string
+    """
+    img = Image.fromarray(data, 'RGB')
+    img.save(index + '.png')
+    img.show()
+
+    return "Saved" + index
