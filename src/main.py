@@ -9,6 +9,7 @@
 # from .knn import NearestNeighbour as NN
 from utils import load_cifar
 from sklearn.model_selection import train_test_split
+import numpy as np
 
 # Data root path
 DATA_ROOT = './data/'
