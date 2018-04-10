@@ -23,11 +23,11 @@ class NearestNeighbour:
 
     def predict(self, test_data):
         # Loop over all rows test data
-        for index in test_data:
-            distances = np.sum(np.subtract(test_data[index], self.train_data[0, :]))
+        for row in test_data:
+            distances = np.sum(np.subtract(test_data[row], self.train_data[0, :]))
 
             # Select the minimum distance as the prediction
-            self.predicted_labels[index] = np.argmin(distances)
+            self.predicted_labels = np.append(self.predicted_labels, np.argmin(distances))
 
         # Return the predicted labels
         return self.predicted_labels
