@@ -9,6 +9,7 @@
 # from .knn import NearestNeighbour as NN
 from utils import load_cifar
 from sklearn.model_selection import train_test_split
+from knn import NearestNeighbour
 import numpy as np
 from PIL import Image
 import matplotlib.pyplot as plt
@@ -22,36 +23,39 @@ STORE_IMAGES = []
 train_data = np.array([])
 train_labels = np.array([])
 
+# Create the Nearest Neighbour model
+model = NearestNeighbour()
+
 for index, batch in enumerate(BATCH_LIST):
     data, labels = load_cifar(DATA_ROOT + batch)
-    train_data = np.append(train_data, data)
-    train_labels = np.append(train_labels, labels)
-    train_data = train_data.reshape((index + 1) * 10000, 3072)
-
-print(train_data.shape)
+    X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size = 0.2)
+    model.train(X_train, y_train)
+    print("Batch %d: " %(index))
+    print(model.predict(X_test))
+    
 
 # Load the first batch only
 # train_data, labels = load_cifar(DATA_ROOT + BATCH_LIST[0])
-image = train_data[2]
+# image = train_data[2]
 
-red_channel = image[0:1024]
-red_channel = red_channel.reshape(32, 32)
-green_channel = image[1024: 2048]
-green_channel = green_channel.reshape(32, 32)
-blue_channel = image[2048:3072]
-blue_channel = blue_channel.reshape(32, 32)
+# red_channel = image[0:1024]
+# red_channel = red_channel.reshape(32, 32)
+# green_channel = image[1024: 2048]
+# green_channel = green_channel.reshape(32, 32)
+# blue_channel = image[2048:3072]
+# blue_channel = blue_channel.reshape(32, 32)
 
 # # Combine the channels
 
 # # Display one of the channels only :D
 # plt.imshow(blue_channel, interpolation='nearest')
 # plt.show()
-imr=Image.fromarray(red_channel,mode=None) # mode I
-imb=Image.fromarray(blue_channel,mode=None)
-img=Image.fromarray(green_channel,mode=None)
+# imr=Image.fromarray(red_channel) # mode I
+# imb=Image.fromarray(blue_channel)
+# img=Image.fromarray(green_channel)
 
-merged=Image.merge("RGB",(imr,img,imb))
-merged.show()
+# merged=Image.merge("RGB",(imr,img,imb))
+# merged.show()
 
 
 
