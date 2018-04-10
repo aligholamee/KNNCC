@@ -22,25 +22,33 @@ train_data = np.array([])
 train_labels = np.array([])
 
 for batch in BATCH_LIST:
-    print(batch)
     data, labels = load_cifar(DATA_ROOT + batch)
-    print(data.shape)
-    print(labels.shape)
     train_data = np.append(train_data, data)
     train_labels = np.append(train_labels, labels)
+    
 
-image_set = train_data.reshape(50000, 3072)
-for image in image_set:
-    red_channel = image[0:1024]
-    red_channel = red_channel.reshape(32, 32)
-    green_channel = image[1025: 2048]
-    green_channel = green_channel.reshape(32, 32)
-    blue_channel = image[2049:3072]
-    blue_channel = blue_channel[32, 32]
+# Load the first batch only
+train_data, labels = load_cifar(DATA_ROOT + BATCH_LIST[0])
+image = train_data[2]
 
-    # Display one of the channels only :D
-    plt.imshow(red_channel, interpolation='nearest')
+red_channel = image[0:1024]
+red_channel = red_channel.reshape(32, 32)
+green_channel = image[1024: 2048]
+green_channel = green_channel.reshape(32, 32)
+blue_channel = image[2048:3072]
+blue_channel = blue_channel.reshape(32, 32)
 
+# # Combine the channels
+
+# # Display one of the channels only :D
+# plt.imshow(blue_channel, interpolation='nearest')
+# plt.show()
+imr=Image.fromarray(red_channel,mode=None) # mode I
+imb=Image.fromarray(blue_channel,mode=None)
+img=Image.fromarray(green_channel,mode=None)
+
+merged=Image.merge("RGB",(imr,img,imb))
+merged.show()
 
 
 
