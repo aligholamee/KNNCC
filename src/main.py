@@ -17,18 +17,21 @@ import matplotlib.pyplot as plt
 DATA_ROOT = './data/'
 BATCH_LIST = ['data_batch_1', 'data_batch_2', 'data_batch_3', 'data_batch_4', 'data_batch_5']
 STORE_IMAGES = []
+
 # Load the data
 train_data = np.array([])
 train_labels = np.array([])
 
-for batch in BATCH_LIST:
+for index, batch in enumerate(BATCH_LIST):
     data, labels = load_cifar(DATA_ROOT + batch)
     train_data = np.append(train_data, data)
     train_labels = np.append(train_labels, labels)
-    
+    train_data = train_data.reshape((index + 1) * 10000, 3072)
+
+print(train_data.shape)
 
 # Load the first batch only
-train_data, labels = load_cifar(DATA_ROOT + BATCH_LIST[0])
+# train_data, labels = load_cifar(DATA_ROOT + BATCH_LIST[0])
 image = train_data[2]
 
 red_channel = image[0:1024]
